@@ -5,9 +5,9 @@ uint32 ultrasonicDistance(void) {
 
     // Give 10us trigger pulse
     GPIO_PORTB_DATA_R &= ~(1 << 7);
-    TIMER1A_DELAY_MILLI(10);
+    TIMER1A_DELAY_MICRO(10);
     GPIO_PORTB_DATA_R |= (1 << 7);
-    TIMER1A_DELAY_MILLI(10);
+    TIMER1A_DELAY_MICRO(10);
     GPIO_PORTB_DATA_R &= ~(1 << 7);
 
     while (1) {

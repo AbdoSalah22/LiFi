@@ -26,7 +26,7 @@ AlarmState magneticAlarmState = IDLE;
 void fire_alarm() {
   if (fireAlarmState == TRIGGERED) {
     lcd.clear();
-    lcd.print("FIRE");
+    lcd.print("Fire Detected");
     analogWrite(FIRE_ALARM, 1000);  // Beep the buzzer with changing frequency
   }
 }
@@ -34,7 +34,7 @@ void fire_alarm() {
 void ultrasonic_alarm() {
   if (ultrasonicAlarmState == TRIGGERED) {
     lcd.clear();
-    lcd.print("SONIC");
+    lcd.print("Sonic Detected");
     analogWrite(ULTRASONIC_ALARM, 1000);  // Beep the buzzer with changing frequency
   }
 }
@@ -42,14 +42,14 @@ void ultrasonic_alarm() {
 void magnetic_alarm() {
   if (magneticAlarmState == TRIGGERED) {
     lcd.clear();
-    lcd.print("MAGNET");
+    lcd.print("Magnet Detected");
     analogWrite(MAGNETIC_ALARM, 1000);  // Beep the buzzer with changing frequency
   }
 }
 
 void mute() {
   lcd.clear();
-  lcd.print("MUTE!!");
+  lcd.print("Alarms Muted");
   muteTriggered = true; // Set the mute triggered flag
   // Reset all alarms to IDLE
   fireAlarmState = IDLE;
@@ -70,6 +70,9 @@ void setup() {
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   lcd.begin(16, 2);
   Serial.begin(9600);
+  lcd.print("LiFi System");
+  lcd.setCursor(0, 1);
+  lcd.print("CSE211: Embedded");
 }
 
 void loop() {

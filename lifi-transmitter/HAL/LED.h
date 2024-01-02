@@ -10,6 +10,10 @@
 
 void LED_init(void);
 
+void toggleRed(void);
+void toggleBlue(void);
+void toggleGreen(void);
+
 void redOn(void);
 void blueOn(void);
 void greenOn(void);

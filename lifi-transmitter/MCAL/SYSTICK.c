@@ -46,6 +46,7 @@ uint8 SysTick_Is_Time_out(void) {
 void SysTick_delayMs(uint32 ms) {
     SysTickDisable();
     SysTickPeriodSet(ms);
+    SysTickClkSrc();
     SysTickEnable();
     while (!SysTick_Is_Time_out()) {}
 }

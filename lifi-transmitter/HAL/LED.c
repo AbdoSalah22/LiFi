@@ -8,6 +8,19 @@ void LED_init(void){
 }
 
 
+void toggleRed(void){
+    GPIO_togglePin(PORTF, RED_LED);
+}
+
+void toggleBlue(void){
+    GPIO_togglePin(PORTF, BLUE_LED);
+}
+
+void toggleGreen(void){
+    GPIO_togglePin(PORTF, GREEN_LED);
+}
+
+
 void redOn(void){
     GPIO_setPin(PORTF, RED_LED);
 }

@@ -29,6 +29,6 @@
 #define BOTH_EDGES      0x0c
 
 void TIMERA_init(uint32 timer, uint32 width, uint32 mode, uint32 direction, uint32 edge);
-void TIMER1A_DELAY_MILLI(int time);
+void TIMER1A_DELAY_MICRO(int time);
 
 #endif //GPTM_H

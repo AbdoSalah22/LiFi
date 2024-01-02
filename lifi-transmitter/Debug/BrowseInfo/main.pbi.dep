@@ -1,11 +1,5 @@
 C:\Abdo\ASU\CESS\Semester\ 7\ -\ Fall23\CSE211\ Introduction\ to\ Embedded\ Systems\Project\lifi-transmitter\Debug\BrowseInfo\main.pbi: \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\ycheck.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\ysizet.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\DLib_Product.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\DLib_Config_Normal.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\DLib_Defaults.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\yvals.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\stdio.h \
+  C:\Abdo\ASU\CESS\Semester\ 7\ -\ Fall23\CSE211\ Introduction\ to\ Embedded\ Systems\Project\lifi-transmitter\MCAL\SYSTICK.h \
   C:\Abdo\ASU\CESS\Semester\ 7\ -\ Fall23\CSE211\ Introduction\ to\ Embedded\ Systems\Project\lifi-transmitter\MCAL\ADC.h \
   C:\Abdo\ASU\CESS\Semester\ 7\ -\ Fall23\CSE211\ Introduction\ to\ Embedded\ Systems\Project\lifi-transmitter\MCAL\GPTM.h \
   C:\Abdo\ASU\CESS\Semester\ 7\ -\ Fall23\CSE211\ Introduction\ to\ Embedded\ Systems\Project\lifi-transmitter\HAL\ULTRASONIC.h \
@@ -16,4 +10,11 @@ C:\Abdo\ASU\CESS\Semester\ 7\ -\ Fall23\CSE211\ Introduction\ to\ Embedded\ Syst
   C:\Abdo\ASU\CESS\Semester\ 7\ -\ Fall23\CSE211\ Introduction\ to\ Embedded\ Systems\Project\lifi-transmitter\HAL\BT.h \
   C:\Abdo\ASU\CESS\Semester\ 7\ -\ Fall23\CSE211\ Introduction\ to\ Embedded\ Systems\Project\lifi-transmitter\INC\delay.h \
   C:\Abdo\ASU\CESS\Semester\ 7\ -\ Fall23\CSE211\ Introduction\ to\ Embedded\ Systems\Project\lifi-transmitter\HAL\..\MCAL\..\INC\tm4c123gh6pm.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\ycheck.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\ysizet.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\DLib_Product.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\DLib_Config_Normal.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\DLib_Defaults.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\yvals.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.0\arm\inc\c\stdio.h \
   C:\Abdo\ASU\CESS\Semester\ 7\ -\ Fall23\CSE211\ Introduction\ to\ Embedded\ Systems\Project\lifi-transmitter\main.c

@@ -1,44 +1,55 @@
+#include <stdio.h>
 #include "INC/tm4c123gh6pm.h"
 #include "INC/delay.h"
+
+
 #include "HAL/BT.h"
 #include "HAL/LED.h"
 #include "HAL/ULTRASONIC.h"
+
+
+//Usage of MCAL for initializing some ports with custom functionalities from main
 #include "MCAL/ADC.h"
 #include "MCAL/GPTM.h"
-#include <stdio.h>
+#include "MCAL/SYSTICK.h"
+
 
 volatile uint32 distance, flameValue;
 volatile uint8 state = 0;
 
+
+//Custom Initializations for ports
 void PortA_Init(void);
 void PortB_Init(void);
 void SWITCH_init(void);
+
+//ISRs
 void PortA_Handler(void);
 void PortF_Handler(void);
 
 
 int main() {
     LED_init();
+    whiteOff(); //turn off all built in LEDs
     SWITCH_init();
     ADC_init(ADC0, PORTE, PIN3, SS3);   //Enable ADC0 and Port E connected to analog flame sensor
     PortB_Init();
     PortA_Init();
     HC05_init();
     TIMERA_init(TIMER0, WIDTH16, CAPTURE_A, UPCOUNT, BOTH_EDGES);
+    GPIO_PORTA_IM_R &= ~(1 << 2);   // Disable interrupt on PA2
 
     while (1) {
-      if(state){
-        GPIO_PORTA_IM_R |= (1 << 2);   // Enable interrupt on PA2
-        
+      if(state){        
         flameValue = ADC_Read(ADC0);
         //printf("Flame: %d\n", flameValue);
         if (flameValue < 512){
-            BT_WriteStr("FLAME!\n");
+            BT_WriteStr("FIRE!\n");
             blueOn();
             delayMs(20);
             blueOff();
         }
-        delayMs(500);
+        SysTick_delayMs(250);
 
         distance = ultrasonicDistance();
         //printf("Sonic: %d\n", distance);
@@ -48,10 +59,9 @@ int main() {
             delayMs(40);
             blueOff();
         }
-        delayMs(500);   
+        SysTick_delayMs(250);  
       }
         else{
-        GPIO_PORTA_IM_R &= ~(1 << 2);   // Disable interrupt on PA2
         __asm("   wfi");
         }
       
@@ -86,14 +96,16 @@ void PortA_Init(void){
 //Custom initialization of port B to use ultrasonic sensor
 void PortB_Init(void){
     // Port B for Trigger and Echo
-    SYSCTL_RCGCGPIO_R |= 2;      /* enable clock to PORTB */
+    SYSCTL_RCGCGPIO_R |= 0x02;
 
-    GPIO_PORTB_DIR_R &= ~0x40;   /* make PB6 an input pin */
-    GPIO_PORTB_DEN_R |= 0x40;    /* make PB6 as a digital pin */
+    //PB6 for echo
+    GPIO_PORTB_DIR_R &= ~0x40;
+    GPIO_PORTB_DEN_R |= 0x40;
     GPIO_PORTB_AFSEL_R |= 0x40;  /* use PB6 alternate function */
     GPIO_PORTB_PCTL_R &= ~0x0F000000;  /* configure PB6 for T0CCP0 */
     GPIO_PORTB_PCTL_R |= 0x07000000;
 
+    //PB7 for trigger
     GPIO_PORTB_DIR_R |= 0x80;   /* set PB7 as a digital output pin */
     GPIO_PORTB_DEN_R |= 0x80;   /* make PB7 as a digital pin */
 }
@@ -129,11 +141,9 @@ void SWITCH_init(void) {
 
 //ISR for port A
 void PortA_Handler(void) {
-    // Check if the interrupt is triggered by the specific pin (e.g., PA2)
+    // Check if the interrupt is triggered by PA2
     if (GPIO_PORTA_MIS_R & (1 << 2)) {
-        // Clear the interrupt flag
         GPIO_PORTA_ICR_R = (1 << 2);
-
         GPIO_PORTF_DATA_R ^= (1 << 2);
         delayMs(80);
         GPIO_PORTF_DATA_R &= ~(1 << 2);        
@@ -146,17 +156,20 @@ void PortA_Handler(void) {
 void PortF_Handler(void) {
     // Check if the interrupt is triggered by switch SW1 (PF4)
     if (GPIO_PORTF_MIS_R & 0x10) {
+        //GPIO_PORTF_ICR_R = 0x10;
+        SysTick_delayMs(250);
+        toggleGreen();
+        GPIO_PORTA_IM_R ^= (1 << 2);   // Enable interrupt on PA2
+        state ^= 1;
         GPIO_PORTF_ICR_R = 0x10;
-        //SysCtlDelay(4000000); // Adjust as needed for your system clock
-        //GPIO_PORTF_DATA_R ^= 0x08;
-        state = 1;
     }
 
-    // Check if the interrupt is triggered by switch SW2 (PF0)
-    else if (GPIO_PORTF_MIS_R & 0x01) {
-        GPIO_PORTF_ICR_R = 0x01;
-        //SysCtlDelay(4000000); // Adjust as needed for your system clock
-        //GPIO_PORTF_DATA_R ^= 0x02;
-        state = 0;
-    }
+      //SW2 is damaged on Tiva Board, use toggle from switch 1 instead
+//    // Check if the interrupt is triggered by switch SW2 (PF0)
+//    else if (GPIO_PORTF_MIS_R & 0x01) {
+//        GPIO_PORTF_ICR_R = 0x01;
+//        //SysCtlDelay(4000000); // Adjust as needed for your system clock
+//        //GPIO_PORTF_DATA_R ^= 0x02;
+//        state = 0;
+//    }
 }
